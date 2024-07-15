@@ -1,0 +1,102 @@
+//
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Course {
+public:
+    string name;
+    float credit_hour = 0;
+    string grade;
+    float gradef = 0.0;
+};
+
+void getInfo() {
+    int noOfCourses;
+    cout << "Enter number of courses: ";
+    cin >> noOfCourses;
+
+    Course* courses = new Course[noOfCourses];
+
+    for (int i = 0; i < noOfCourses; ++i) {
+        cout << "Enter course name for course " << i + 1 << ": ";
+        cin >> courses[i].name;
+        cout << "Enter credit hours for course " << i + 1 << ": ";
+        cin >> courses[i].credit_hour;
+        cout << "Enter grade obtained (A to D) for course " << i + 1 << ": ";
+        cin >> courses[i].grade;
+
+    
+        if (courses[i].grade == "A") {
+            courses[i].gradef = 4 * courses[i].credit_hour;
+        }
+        else if (courses[i].grade == "A-") {
+            courses[i].gradef = 3.5 * courses[i].credit_hour;
+        }
+        else if (courses[i].grade == "B+") {
+            courses[i].gradef = 3.3 * courses[i].credit_hour;
+        }
+        else if (courses[i].grade == "B") {
+            courses[i].gradef = 3 * courses[i].credit_hour;
+        }
+        else if (courses[i].grade == "B-") {
+            courses[i].gradef = 2.9 * courses[i].credit_hour;
+        }
+        else if (courses[i].grade == "C+") {
+            courses[i].gradef = 2.7 * courses[i].credit_hour;
+        }
+        else if (courses[i].grade == "C") {
+            courses[i].gradef = 2.5 * courses[i].credit_hour;
+        }
+        else if (courses[i].grade == "C-") {
+            courses[i].gradef = 2.3 * courses[i].credit_hour;
+        }
+        else if (courses[i].grade == "D") {
+            courses[i].gradef = 2 * courses[i].credit_hour;
+        }
+        else {
+            cout << "Invalid grade entered for course " << i + 1 << ". Skipping...\n";
+           
+            --i;
+        }
+    }
+
+
+    float tCreditH = 0, tCreditEarned = 0;
+    for (int i = 0; i < noOfCourses; ++i) {
+        tCreditH += courses[i].credit_hour;
+        tCreditEarned += courses[i].gradef;
+    }
+    float GPA = tCreditEarned / tCreditH;
+
+   
+    cout << "GPA (For this semester): " << GPA << endl;
+
+    delete[] courses;
+}
+
+int main() {
+    cout << "\n              TASK -1\n\n";
+    string name;
+    int semester;
+
+    cout << "Enter student name: ";
+    cin >> name;
+    cout << "Enter semester (1st, 2nd, ...): ";
+    cin >> semester;
+
+
+    if (semester > 1) {
+        float* ary = new float[semester];
+        cout << "Enter your previous semester GPAs (0 < GPA < 4): \n";
+        for (int i = 1; i < semester; ++i) {
+            cout <<" "<< i << " semester: ";
+            cin >> ary[i];
+        }
+        delete[] ary;
+    }
+    getInfo();
+
+    return 0;
+}
